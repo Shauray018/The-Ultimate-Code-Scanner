@@ -19,14 +19,14 @@ def main():
     with open(filename) as file:
         file_contents = file.read()
 
-    def find_word_line_number(filename, target_word):
+    def find_word_line_number(contents, target_word):
         line_number = 0
-    
-        with open(filename, 'r') as file:
-            for line in file:
-                line_number += 1
-                if target_word in line:
-                    return line_number
+        for line in contents.split('\n'):
+            line_number += 1
+            if target_word in line:
+                return line_number
+        # If the word is not found in the file, return None
+        return None
  
     # If the word is not found in the file, return None
         return None
