@@ -36,6 +36,10 @@ def main():
             print("COMMA , null")
         if c == "+":
             print("PLUS + null")
+        if c == "-":
+            print("MINUS - null")
+        if c == ";":
+            print("SEMICOLON ; null")
     print("EOF  null")
 
 
