@@ -19,6 +19,19 @@ def main():
     with open(filename) as file:
         file_contents = file.read()
 
+    def find_word_line_number(filename, target_word):
+        line_number = 0
+    
+        with open(filename, 'r') as file:
+            for line in file:
+                line_number += 1
+                if target_word in line:
+                    return line_number
+ 
+    # If the word is not found in the file, return None
+        return None
+    
+
     for c in file_contents:
         if c == "(":
             print("LEFT_PAREN ( null")
@@ -40,6 +53,9 @@ def main():
             print("MINUS - null")
         if c == ";":
             print("SEMICOLON ; null")
+        else : 
+            ln = find_word_line_number(filename, c)
+            print(f"[line {ln}] Error: Unexpected character: {c}")
     print("EOF  null")
 
 
@@ -47,13 +63,4 @@ if __name__ == "__main__":
     main()
 
 
-# LEFT_PAREN ( null
-# LEFT_BRACE { null
-# STAR * null
-# DOT . null
-# COMMA , null
-# PLUS + null
-# STAR * null
-# RIGHT_BRACE } null
-# RIGHT_PAREN ) null
-# EOF  null
+# [line 1] Error: Unexpected character: $
