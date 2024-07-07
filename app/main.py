@@ -55,7 +55,7 @@ def main():
             print("SEMICOLON ; null")
         else : 
             error = True 
-            ln = find_word_line_number(filename, c)
+            ln = find_word_line_number(file_contents, c)
             print(f"\n[line {ln}] Error: Unexpected character: {c}")
             
     print("EOF  null")
@@ -67,6 +67,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# [line 1] Error: Unexpected character: $
