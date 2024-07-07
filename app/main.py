@@ -31,7 +31,7 @@ def main():
     # If the word is not found in the file, return None
         return None
     
-
+    error = False
     for c in file_contents:
         if c == "(":
             print("LEFT_PAREN ( null")
@@ -54,10 +54,15 @@ def main():
         if c == ";":
             print("SEMICOLON ; null")
         else : 
+            error = True 
             ln = find_word_line_number(filename, c)
-            print(f"[line {ln}] Error: Unexpected character: {c}")
-            exit(65)
+            print(f"\n[line {ln}] Error: Unexpected character: {c}")
+            
     print("EOF  null")
+    if error:
+        exit(65)
+    else:
+        exit(0)
 
 
 if __name__ == "__main__":
