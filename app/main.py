@@ -35,28 +35,28 @@ def main():
     for c in file_contents:
         if c == "(":
             print("LEFT_PAREN ( null")
-        if c == ")":
+        elif c == ")":
             print("RIGHT_PAREN ) null")
-        if c == "{":
+        elif c == "{":
             print("LEFT_BRACE { null")
-        if c == "}":
+        elif c == "}":
             print("RIGHT_BRACE } null")
-        if c == "*":
+        elif c == "*":
             print("STAR * null")
-        if c == ".":
+        elif c == ".":
             print("DOT . null")
-        if c == ",":
+        elif c == ",":
             print("COMMA , null")
-        if c == "+":
+        elif c == "+":
             print("PLUS + null")
-        if c == "-":
+        elif c == "-":
             print("MINUS - null")
-        if c == ";":
+        elif c == ";":
             print("SEMICOLON ; null")
         else : 
             error = True 
             ln = find_word_line_number(file_contents, c)
-            print(f"\n[line {ln}] Error: Unexpected character: {c}")
+            print(f"[line {ln}] Error: Unexpected character: {c}")
             
     print("EOF  null")
     if error:
