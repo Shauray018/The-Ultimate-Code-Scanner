@@ -20,10 +20,10 @@ def main():
         file_contents = file.read()
 
     for c in file_contents:
-        if c == "(":
-            print("LEFT_PAREN ( null")
-        if c == ")":
-            print("RIGHT_PAREN ) null")
+        if c == "(" or "{":
+            print(f"LEFT_PAREN {c} null")
+        if c == ")" or "}":
+            print(f"RIGHT_PAREN {c} null")
     print("EOF  null")
 
 
