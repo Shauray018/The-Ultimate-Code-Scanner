@@ -56,6 +56,7 @@ def main():
         else : 
             ln = find_word_line_number(filename, c)
             print(f"[line {ln}] Error: Unexpected character: {c}")
+            exit(65)
     print("EOF  null")
 
 
