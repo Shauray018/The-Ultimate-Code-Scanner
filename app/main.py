@@ -25,9 +25,9 @@ def main():
         if c == ")":
             print("RIGHT_PAREN ) null")
         if c == "{":
-            print("LEFT_PAREN { null")
+            print("LEFT_BRACE { null")
         if c == "}":
-            print("RIGHT_PAREN } null")
+            print("RIGHT_BRACE } null")
     print("EOF  null")
 
 
