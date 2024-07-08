@@ -106,7 +106,7 @@ def main():
                 error_messages.append("[line %d] Error: Unterminated string." % start_line)
                 break
             else:
-                tokens.append(f'STRING \"{string_token}\"')
+                tokens.append(f'STRING \"{string_token}\" {string_token}')
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
