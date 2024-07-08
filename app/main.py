@@ -116,24 +116,23 @@ def main():
                 break
             else:
                 tokens.append(f'STRING \"{string_token}\" {string_token}')
-        elif c.isdigit():
+        elif c.isdigit() or c == '.':
             num_str = c
             i += 1
-            while i < len(file_contents) and file_contents[i].isdigit():
+            dot_count = 1 if c == '.' else 0
+            while i < len(file_contents) and (file_contents[i].isdigit() or (file_contents[i] == '.' and dot_count == 0)):
+                if file_contents[i] == '.':
+                    dot_count += 1
                 num_str += file_contents[i]
                 i += 1
             tokens.append(f'NUMBER {num_str} {float(num_str)}')
-            i -= 1  # Adjust since the outer loop will also increment `i`
-        elif c == '.':
-            tokens.append("DOT . null")
-            if i + 1 < len(file_contents) and file_contents[i + 1].isdigit():
+            
+            # Handle any additional decimal points
+            while i < len(file_contents) and file_contents[i] == '.':
+                tokens.append("DOT . null")
                 i += 1
-                num_str = ''
-                while i < len(file_contents) and file_contents[i].isdigit():
-                    num_str += file_contents[i]
-                    i += 1
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
-                i -= 1  # Adjust since the outer loop will also increment `i`
+            
+            i -= 1  # Adjust since the outer loop will also increment `i`
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
