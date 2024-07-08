@@ -89,7 +89,7 @@ def main():
                 file=sys.stderr,
             )
 
-    print("EOF null")
+    print("EOF  null")
     if error:
         exit(65)
     else:
