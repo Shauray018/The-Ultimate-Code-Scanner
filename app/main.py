@@ -23,7 +23,7 @@ def main():
     skip_next = False
     tokens = []
     error_messages = []
-    line = 1
+    line_number = 1
 
     for i in range(length):
         if skip_next:
@@ -33,11 +33,13 @@ def main():
         c = file_contents[i]
         next_c = file_contents[i + 1] if i + 1 < length else None  # Peek at the next character
 
+        if c == "\n":
+            line_number += 1
+            continue
+
         if c == "(":
-            # print("LEFT_PAREN ( null")
             tokens.append("LEFT_PAREN ( null")
         elif c == ")":
-            # print("RIGHT_PAREN ) null")
             tokens.append("RIGHT_PAREN ) null")
         elif c == "{":
             tokens.append("LEFT_BRACE { null")
@@ -84,24 +86,19 @@ def main():
                 break  # Ignore the rest of the line for a comment
             else:
                 tokens.append("SLASH / null")
-        elif c == " " or c == "\t" or c == "\n":
+        elif c == " " or c == "\t":
             pass  # Ignore whitespace characters
         else:
             error = True
-            line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
-            # print(
-            #     "[line %s] Error: Unexpected character: %s" % (line_number, c),
-            #     file=sys.stderr,
-            # )
             error_messages.append("[line %s] Error: Unexpected character: %s" % (line_number, c))
 
-    # print("EOF  null")
-    tokens.append("EOF  null")
-    # print("EOF  null")
+    tokens.append("EOF null")
+
     for error_message in error_messages:
         print(error_message, file=sys.stderr)
     for token in tokens:
         print(token)
+
     if error:
         exit(65)
     else:
