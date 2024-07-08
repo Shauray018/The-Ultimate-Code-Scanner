@@ -89,7 +89,7 @@ def main():
             line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
             error_messages.append("[line %s] Error: Unexpected character: %s" % (line_number, c))
 
-    tokens.append("EOF null")
+    tokens.append("EOF  null")
 
     for error_message in error_messages:
         print(error_message, file=sys.stderr)
