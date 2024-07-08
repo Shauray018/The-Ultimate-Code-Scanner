@@ -117,29 +117,35 @@ def main():
             else:
                 tokens.append(f'STRING \"{string_token}\" {string_token}')
         elif c.isdigit() or c == '.':
-            num_str = c
-            i += 1
-            dot_count = 1 if c == '.' else 0
-            while i < len(file_contents) and (file_contents[i].isdigit() or (file_contents[i] == '.' and dot_count == 0)):
-                if file_contents[i] == '.':
-                    dot_count += 1
-                num_str += file_contents[i]
+                num_str = c
                 i += 1
-            
-            # Check if the number ends with a dot
-            if num_str.endswith('.'):
-                num_str = num_str[:-1]  # Remove the trailing dot
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                dot_count = 1 if c == '.' else 0
+                while i < len(file_contents) and (file_contents[i].isdigit() or (file_contents[i] == '.' and dot_count == 0)):
+                    if file_contents[i] == '.':
+                        dot_count += 1
+                    num_str += file_contents[i]
+                    i += 1
+                
+                # Check if we actually parsed a number
+                if num_str == '.':
+                    tokens.append("DOT . null")
+                else:
+                    # Check if the number ends with a dot
+                    if num_str.endswith('.'):
+                        num_str = num_str[:-1]  # Remove the trailing dot
+                        tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                        tokens.append("DOT . null")
+                    else:
+                        tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                
+                # Handle any additional decimal points
+                while i < len(file_contents) and file_contents[i] == '.':
+                    tokens.append("DOT . null")
+                    i += 1
+                
+                i -= 1  # Adjust since the outer loop will also increment `i`
+        elif c == '.':
                 tokens.append("DOT . null")
-            else:
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
-            
-            # Handle any additional decimal points
-            while i < len(file_contents) and file_contents[i] == '.':
-                tokens.append("DOT . null")
-                i += 1
-            
-            i -= 1  # Adjust since the outer loop will also increment `i`
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
