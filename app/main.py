@@ -113,7 +113,7 @@ def main():
 
         i += 1
 
-    tokens.append("EOF null")
+    tokens.append("EOF  null")
 
     for error_message in error_messages:
         print(error_message, file=sys.stderr)
