@@ -94,17 +94,26 @@ def main():
         elif c == '"':
             string_token = ''
             i += 1
+            start_line = line_number
             while i < len(file_contents) and file_contents[i] != '"':
+                if file_contents[i] == "\n":
+                    line_number += 1
                 string_token += file_contents[i]
                 i += 1
-            tokens.append(f'STRING "{string_token}" {string_token}')
+
+            if i >= len(file_contents) or file_contents[i] != '"':
+                error = True
+                error_messages.append("[line %d] Error: Unterminated string." % start_line)
+                break
+            else:
+                tokens.append(f'STRING \"{string_token}\"')
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
 
         i += 1
 
-    tokens.append("EOF  null")
+    tokens.append("EOF null")
 
     for error_message in error_messages:
         print(error_message, file=sys.stderr)
@@ -118,4 +127,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-#STRING "foo baz" foo baz
