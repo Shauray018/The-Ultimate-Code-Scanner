@@ -132,7 +132,11 @@ def main():
                 num_str += file_contents[i]
                 i += 1
             else:
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                if dot_count <= 1:
+                    tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                else:
+                    error = True
+                    error_messages.append("[line %d] Error: Invalid number: %s" % (line_number, num_str))
                 i -= 1  # Adjust since the outer loop will also increment `i`
         else:
             error = True
