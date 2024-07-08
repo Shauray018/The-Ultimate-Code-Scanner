@@ -1,5 +1,4 @@
 import sys
-import re
 
 def main():
     print("Logs from your program will appear here!", file=sys.stderr)
@@ -23,13 +22,6 @@ def main():
     tokens = []
     error_messages = []
     line_number = 1
-
-    def is_valid_number(num_str):
-        try:
-            float(num_str)
-            return True
-        except ValueError:
-            return False
 
     i = 0
     while i < len(file_contents):
@@ -63,11 +55,7 @@ def main():
                 while i < len(file_contents) and file_contents[i].isdigit():
                     num_str += file_contents[i]
                     i += 1
-                if is_valid_number(num_str):
-                    tokens.append(f'NUMBER {num_str} {float(num_str)}')
-                else:
-                    error = True
-                    error_messages.append("[line %d] Error: Invalid number: %s" % (line_number, num_str))
+                tokens.append(f'NUMBER {num_str} {float(num_str)}')
                 i -= 1  # Adjust since the outer loop will also increment `i`
             else:
                 tokens.append("DOT . null")
@@ -130,16 +118,22 @@ def main():
                 tokens.append(f'STRING \"{string_token}\" {string_token}')
         elif c.isdigit() or (c == '.' and next_c and next_c.isdigit()):
             num_str = c
+            dot_count = 0
+            if c == '.':
+                dot_count += 1
             i += 1
             while i < len(file_contents) and (file_contents[i].isdigit() or file_contents[i] == '.'):
+                if file_contents[i] == '.':
+                    dot_count += 1
+                if dot_count > 1:
+                    error = True
+                    error_messages.append("[line %d] Error: Invalid number: %s" % (line_number, num_str + file_contents[i]))
+                    break
                 num_str += file_contents[i]
                 i += 1
-            if is_valid_number(num_str):
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
             else:
-                error = True
-                error_messages.append("[line %d] Error: Invalid number: %s" % (line_number, num_str))
-            i -= 1  # Adjust since the outer loop will also increment `i`
+                tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                i -= 1  # Adjust since the outer loop will also increment `i`
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
