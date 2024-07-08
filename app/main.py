@@ -72,6 +72,18 @@ def main():
                 count += 1 
             else : 
                 print("BANG ! null")
+        elif c == "<": 
+            if next_c == "=": 
+                print("LESS_EQUAL <= null")
+                count += 1 
+            else : 
+                print("LESS < null")
+        elif c == ">": 
+            if next_c == "=": 
+                print("GREATER_EQUAL >= null")
+                count += 1 
+            else : 
+                print("GREATER > null")
         else:
             error = True
             line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
@@ -89,5 +101,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-#     BANG ! null
-# BANG_EQUAL != null
+# LESS < null
+# LESS_EQUAL <= null
+# GREATER > null
+# GREATER_EQUAL >= null
