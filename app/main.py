@@ -53,10 +53,13 @@ def main():
             print("MINUS - null")
         elif c == ";":
             print("SEMICOLON ; null")
-        else : 
-            error = True 
-            ln = find_word_line_number(file_contents, c)
-            print(f"[line {ln}] Error: Unexpected character: {c}")
+        else:
+            error = True
+            line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
+            print(
+                "[line %s] Error: Unexpected character: %s" % (line_number, c),
+                file=sys.stderr,
+            )
             
     print("EOF  null")
     if error:
