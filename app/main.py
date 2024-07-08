@@ -24,6 +24,13 @@ def main():
     error_messages = []
     line_number = 1
 
+    def is_valid_number(num_str):
+        try:
+            float(num_str)
+            return True
+        except ValueError:
+            return False
+
     i = 0
     while i < len(file_contents):
         if skip_next:
@@ -56,7 +63,11 @@ def main():
                 while i < len(file_contents) and file_contents[i].isdigit():
                     num_str += file_contents[i]
                     i += 1
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                if is_valid_number(num_str):
+                    tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                else:
+                    error = True
+                    error_messages.append("[line %d] Error: Invalid number: %s" % (line_number, num_str))
                 i -= 1  # Adjust since the outer loop will also increment `i`
             else:
                 tokens.append("DOT . null")
@@ -116,14 +127,18 @@ def main():
                 error_messages.append("[line %d] Error: Unterminated string." % start_line)
                 break
             else:
-                tokens.append(f'STRING \"{string_token}\ {string_token}"')
+                tokens.append(f'STRING \"{string_token}\" {string_token}')
         elif c.isdigit() or (c == '.' and next_c and next_c.isdigit()):
             num_str = c
             i += 1
             while i < len(file_contents) and (file_contents[i].isdigit() or file_contents[i] == '.'):
                 num_str += file_contents[i]
                 i += 1
-            tokens.append(f'NUMBER {num_str} {float(num_str)}')
+            if is_valid_number(num_str):
+                tokens.append(f'NUMBER {num_str} {float(num_str)}')
+            else:
+                error = True
+                error_messages.append("[line %d] Error: Invalid number: %s" % (line_number, num_str))
             i -= 1  # Adjust since the outer loop will also increment `i`
         else:
             error = True
