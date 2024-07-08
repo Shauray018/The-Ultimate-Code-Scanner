@@ -50,13 +50,15 @@ def main():
                 print("STAR * null")
             elif c == ".":
                 print("DOT . null")
+            elif c == " " or c == "\r" or c == "\t":
+                pass
             elif c == ",":
                 print("COMMA , null")
             elif c == "+":
                 print("PLUS + null")
             elif c == "-":
                 print("MINUS - null")
-            elif c == ";":
+            elif c == ";":  
                 print("SEMICOLON ; null")
             elif c == "=": 
                 if count == 0: 
