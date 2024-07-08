@@ -116,35 +116,24 @@ def main():
                 break
             else:
                 tokens.append(f'STRING \"{string_token}\" {string_token}')
-        elif c.isdigit() or c == '.':
-            num_str = ''
-            if c.isdigit():
-                while i < len(file_contents) and file_contents[i].isdigit():
-                    num_str += file_contents[i]
-                    i += 1
-                if i < len(file_contents) and file_contents[i] == '.':
-                    if i + 1 < len(file_contents) and file_contents[i + 1].isdigit():
-                        # If there are digits after the decimal point, include it
-                        num_str += '.'
-                        i += 1
-                        while i < len(file_contents) and file_contents[i].isdigit():
-                            num_str += file_contents[i]
-                            i += 1
-                    else:
-                        # If there are no digits after the decimal point, don't include it
-                        i -= 1  # Move back to the decimal point
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
-                i -= 1  # Adjust since the outer loop will also increment `i`
-            elif c == '.' and next_c and next_c.isdigit():
-                num_str = '.'
+        elif c.isdigit():
+            num_str = c
+            i += 1
+            while i < len(file_contents) and file_contents[i].isdigit():
+                num_str += file_contents[i]
                 i += 1
+            tokens.append(f'NUMBER {num_str} {float(num_str)}')
+            i -= 1  # Adjust since the outer loop will also increment `i`
+        elif c == '.':
+            tokens.append("DOT . null")
+            if i + 1 < len(file_contents) and file_contents[i + 1].isdigit():
+                i += 1
+                num_str = ''
                 while i < len(file_contents) and file_contents[i].isdigit():
                     num_str += file_contents[i]
                     i += 1
                 tokens.append(f'NUMBER {num_str} {float(num_str)}')
                 i -= 1  # Adjust since the outer loop will also increment `i`
-            else:
-                tokens.append("DOT . null")
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
