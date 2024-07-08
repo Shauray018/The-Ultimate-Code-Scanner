@@ -34,8 +34,10 @@ def main():
         next_c = file_contents[i + 1] if i + 1 < length else None  # Peek at the next character
 
         if c == "(":
+            # print("LEFT_PAREN ( null")
             tokens.append("LEFT_PAREN ( null")
         elif c == ")":
+            # print("RIGHT_PAREN ) null")
             tokens.append("RIGHT_PAREN ) null")
         elif c == "{":
             tokens.append("LEFT_BRACE { null")
@@ -87,15 +89,19 @@ def main():
         else:
             error = True
             line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
+            # print(
+            #     "[line %s] Error: Unexpected character: %s" % (line_number, c),
+            #     file=sys.stderr,
+            # )
             error_messages.append("[line %s] Error: Unexpected character: %s" % (line_number, c))
 
+    # print("EOF  null")
     tokens.append("EOF  null")
-
+    # print("EOF  null")
     for error_message in error_messages:
         print(error_message, file=sys.stderr)
     for token in tokens:
         print(token)
-
     if error:
         exit(65)
     else:
