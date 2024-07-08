@@ -50,8 +50,6 @@ def main():
                 print("STAR * null")
             elif c == ".":
                 print("DOT . null")
-            elif c == " " or c == "\r" or c == "\t":
-                pass
             elif c == ",":
                 print("COMMA , null")
             elif c == "+":
@@ -92,6 +90,8 @@ def main():
                     countx += 1
                 else : 
                     print("SLASH / null")
+            elif c == " " or c == "\t":
+                pass    
             else:
                 error = True
                 line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
