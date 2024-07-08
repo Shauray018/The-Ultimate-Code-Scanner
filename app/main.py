@@ -30,7 +30,8 @@ def main():
  
     # If the word is not found in the file, return None
         return None
-    count = 0; 
+    count = 0  
+    countx = 0
     error = False
     length = len(file_contents)
     for i in range(length):
@@ -65,7 +66,12 @@ def main():
                     print("EQUAL = null")
             else : 
                 count = 0 
-            
+        elif c == "!": 
+            if next_c == "=": 
+                print("BANG_EQUAL != null")
+                count += 1 
+            else : 
+                print("BANG ! null")
         else:
             error = True
             line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
@@ -83,3 +89,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+#     BANG ! null
+# BANG_EQUAL != null
