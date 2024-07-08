@@ -48,17 +48,17 @@ def main():
             tokens.append("RIGHT_BRACE } null")
         elif c == "*":
             tokens.append("STAR * null")
-        elif c == ".":
-            if next_c and next_c.isdigit():
-                num_str = c
-                i += 1
-                while i < len(file_contents) and file_contents[i].isdigit():
-                    num_str += file_contents[i]
-                    i += 1
-                tokens.append(f'NUMBER {num_str} {float(num_str)}')
-                i -= 1  # Adjust since the outer loop will also increment `i`
-            else:
-                tokens.append("DOT . null")
+        # elif c == ".":
+        #     if next_c and next_c.isdigit():
+        #         num_str = c
+        #         i += 1
+        #         while i < len(file_contents) and file_contents[i].isdigit():
+        #             num_str += file_contents[i]
+        #             i += 1
+        #         tokens.append(f'NUMBER {num_str} {float(num_str)}')
+        #         i -= 1  # Adjust since the outer loop will also increment `i`
+        #     else:
+        #         tokens.append("DOT . null")
         elif c == ",":
             tokens.append("COMMA , null")
         elif c == "+":
@@ -127,6 +127,11 @@ def main():
                     i += 1
                 tokens.append(f'NUMBER {num_str} {float(num_str)}')
                 i -= 1  # Adjust since the outer loop will also increment `i`
+
+                # Handle any additional decimal points
+                while i + 1 < len(file_contents) and file_contents[i + 1] == '.':
+                    i += 1
+                    tokens.append("DOT . null")
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
