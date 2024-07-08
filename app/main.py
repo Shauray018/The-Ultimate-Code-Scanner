@@ -35,6 +35,8 @@ def main():
 
         if c == "\n":
             line_number += 1
+            i += 1
+            continue
 
         if c == "(":
             tokens.append("LEFT_PAREN ( null")
@@ -84,13 +86,18 @@ def main():
             if next_c == "/":
                 while i < len(file_contents) and file_contents[i] != "\n":
                     i += 1
-                line_number += 1
+                continue
             else:
                 tokens.append("SLASH / null")
         elif c == " " or c == "\t":
             pass  # Ignore whitespace characters
-        elif c == "\n":
-            pass  # Line number increment is already handled above
+        elif c == '"':
+            string_token = ''
+            i += 1
+            while i < len(file_contents) and file_contents[i] != '"':
+                string_token += file_contents[i]
+                i += 1
+            tokens.append(f'STRING "{string_token}" {string_token}')
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
@@ -111,3 +118,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+#STRING "foo baz" foo baz
