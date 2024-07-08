@@ -125,7 +125,14 @@ def main():
                     dot_count += 1
                 num_str += file_contents[i]
                 i += 1
-            tokens.append(f'NUMBER {num_str} {float(num_str)}')
+            
+            # Check if the number ends with a dot
+            if num_str.endswith('.'):
+                num_str = num_str[:-1]  # Remove the trailing dot
+                tokens.append(f'NUMBER {num_str} {float(num_str)}')
+                tokens.append("DOT . null")
+            else:
+                tokens.append(f'NUMBER {num_str} {float(num_str)}')
             
             # Handle any additional decimal points
             while i < len(file_contents) and file_contents[i] == '.':
