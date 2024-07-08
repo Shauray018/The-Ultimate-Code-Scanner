@@ -30,9 +30,12 @@ def main():
  
     # If the word is not found in the file, return None
         return None
-    
+    count = 0; 
     error = False
-    for c in file_contents:
+    length = len(file_contents)
+    for i in range(length):
+        c = file_contents[i]
+        next_c = file_contents[i + 1] if i + 1 < length else None  # Peek at the next character
         if c == "(":
             print("LEFT_PAREN ( null")
         elif c == ")":
@@ -53,6 +56,16 @@ def main():
             print("MINUS - null")
         elif c == ";":
             print("SEMICOLON ; null")
+        elif c == "=": 
+            if count == 0: 
+                if next_c == "=": 
+                    print("EQUAL_EQUAL == null")
+                    count += 1 
+                else : 
+                    print("EQUAL = null")
+            else : 
+                count = 0 
+            
         else:
             error = True
             line_number = file_contents.count("\n", 0, file_contents.find(c)) + 1
