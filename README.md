@@ -1,4 +1,4 @@
-# 🚀 Super Awesome Lox Tokenizer 🚀
+# 🚀 Super Awesome Lox Tokenizer: The Ultimate Code Scanner 🚀
 
 Hey there, code ninjas! 👋 Welcome to the coolest tokenizer this side of the internet! 
 
