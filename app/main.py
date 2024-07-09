@@ -146,6 +146,18 @@ def main():
                 i -= 1  # Adjust since the outer loop will also increment `i`
         elif c == '.':
                 tokens.append("DOT . null")
+        elif c.isalpha() or c == "_":
+            identifier = c
+            i += 1
+            while i < len(file_contents) and (file_contents[i].isalnum() or file_contents[i] == '_'):
+                identifier += file_contents[i]
+                i += 1
+            tokens.append(f"IDENTIFIER {identifier} null")
+            i -= 1  # Adjust since the outer loop will also increment `i`
+        elif c.isspace():
+            i += 1
+            continue
+
         else:
             error = True
             error_messages.append("[line %d] Error: Unexpected character: %s" % (line_number, c))
