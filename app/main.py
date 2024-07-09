@@ -142,12 +142,12 @@ def main():
             while i < len(file_contents) and (file_contents[i].isalnum() or file_contents[i] == '_'):
                 identifier += file_contents[i]
                 i += 1
-                identifierU = identifier.upper()
-                identifierL = identifier.lower()
-                if (identifier in reservedWords) : 
-                    tokens.append(f"{identifierU} {identifierL} null")
-                else : 
-                    tokens.append(f"IDENTIFIER {identifier} null")
+            identifierU = identifier.upper()
+            identifierL = identifier.lower()
+            if (identifier in reservedWords) : 
+                tokens.append(f"{identifierU} {identifierL} null")
+            else : 
+                tokens.append(f"IDENTIFIER {identifier} null")
             i -= 1  # Adjust since the outer loop will also increment `i`
         elif c.isspace():
             i += 1
