@@ -22,6 +22,7 @@ def main():
     tokens = []
     error_messages = []
     line_number = 1
+    reservedWords = ["and", "class","else", "false", "for", "fun", "if", "nil", "or", "print", "return", "super", "this", "true", "var", "while"]
 
     i = 0
     while i < len(file_contents):
@@ -48,17 +49,6 @@ def main():
             tokens.append("RIGHT_BRACE } null")
         elif c == "*":
             tokens.append("STAR * null")
-        # elif c == ".":
-        #     if next_c and next_c.isdigit():
-        #         num_str = c
-        #         i += 1
-        #         while i < len(file_contents) and file_contents[i].isdigit():
-        #             num_str += file_contents[i]
-        #             i += 1
-        #         tokens.append(f'NUMBER {num_str} {float(num_str)}')
-        #         i -= 1  # Adjust since the outer loop will also increment `i`
-        #     else:
-        #         tokens.append("DOT . null")
         elif c == ",":
             tokens.append("COMMA , null")
         elif c == "+":
@@ -152,7 +142,12 @@ def main():
             while i < len(file_contents) and (file_contents[i].isalnum() or file_contents[i] == '_'):
                 identifier += file_contents[i]
                 i += 1
-            tokens.append(f"IDENTIFIER {identifier} null")
+                identifierU = identifier.upper()
+                identifierL = identifier.lower()
+                if (identifier in reservedWords) : 
+                    tokens.append(f"{identifierU} {identifierL} null")
+                else : 
+                    tokens.append(f"IDENTIFIER {identifier} null")
             i -= 1  # Adjust since the outer loop will also increment `i`
         elif c.isspace():
             i += 1
