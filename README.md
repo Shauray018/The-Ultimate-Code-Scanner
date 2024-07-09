@@ -1,38 +1,51 @@
 # 🚀 Super Awesome Lox Tokenizer: The Ultimate Code Scanner 🚀
 
-Hey there, code ninjas! 👋 Welcome to the coolest tokenizer this side of the internet! 
+Hey there! Welcome to the Tokenizer Script README. This script is designed to read a file and tokenize its contents. It supports various tokens like parentheses, braces, operators, and more. Plus, it can handle numbers, strings, and even identifiers! Let's dive right in.
 
-## What's this thing do? 🤔
+## Usage
 
-This bad boy takes your Lox code and chops it up into tiny, digestible pieces called tokens. It's like a blender for your code, but way cooler and less likely to wake up your roommates.
+First things first, you need to run this script from the command line. Here's the command you'll use:
 
-## Features 🌟
+```bash
+./your_program.sh tokenize <filename>
 
-- Tokenizes numbers (even those pesky decimal points)
-- Recognizes strings (because who doesn't love a good "Hello, World!")
-- Identifies all the fancy Lox keywords
-- Handles operators like a boss
-- Deals with identifiers (aka the names you give your variables when you're too tired to be creative)
+Replace <filename> with the name of the file you want to tokenize.
+What It Does
+When you run the script, it reads the file and spits out tokens. These tokens are basically small pieces of the file's content that the script recognizes. For example, things like (, ), {, }, numbers, strings, and even reserved keywords (like if, else, while, etc.) are all turned into tokens.
+Example
+Let's say you have a file named test.lox with the following content:
+Copy123 123.456 .456 123.
+// expect: NUMBER 123 123.0
+// expect: NUMBER 123.456 123.456
+// expect: DOT .
+// expect: NUMBER 456 456.0
+// expect: NUMBER 123 123.0
+// expect: DOT .
+// expect: EOF null
+When you run the script like this:
+bashCopy./your_program.sh tokenize test.lox
+You'll get the following output:
+CopyNUMBER 123 123.0
+NUMBER 123.456 123.456
+DOT .
+NUMBER 456 456.0
+NUMBER 123 123.0
+DOT .
+EOF null
+Handling Errors
+The script is pretty smart and will catch some common errors. For example, if it finds an invalid number or an unterminated string, it'll let you know with an error message. And yes, it'll even give you the line number where it found the error!
+Exit Codes
+The script uses exit codes to indicate success or failure:
 
-## How to use this beast 🦁
+0: Everything went well!
+65: Oops, something went wrong.
 
-1. Clone this repo (you know the drill)
-2. Run it like this: `./your_program.sh tokenize your_lox_file.lox`
-3. Watch in awe as it spits out tokens faster than you can say "syntax error"
+## Important Notes
 
-## Known issues 🐛
+This script assumes the input file uses the .lox extension, but feel free to use any file you like.
+It handles comments, so anything after // on a line will be ignored.
+It recognizes reserved keywords and will output them in uppercase.
 
-- Might occasionally tokenize your coffee order. We're working on it.
-- Not compatible with actual lox (the food). Please don't try to tokenize your bagel.
-
-## Contributing 🤝
-
-Found a bug? Think you can make this tokenizer even more awesome? Pull requests are welcome! Just remember, with great power comes great responsibility... and maybe a few merge conflicts.
-
-## License 📜
-
-This project is licensed under the "Please Don't Sue Me, I'm Just Trying To Learn" License.
-
-## Final words 🎤
-
-Remember, friends: always tokenize responsibly. Happy coding! 🎉
+## Final Thoughts
+That's pretty much it! This script is a handy tool for tokenizing your files, and it's pretty straightforward to use. If you run into any issues or have any questions, feel free to tweak the code and see what happens. Happy coding!
+Enjoy your tokenizing adventures!
